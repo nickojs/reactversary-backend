@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 const CORS = require('./middlewares/CORS');
-// const database = require('./config/database');
+const database = require('./config/database');
 
 const errorHandler = require('./middlewares/error-handler');
 const authRoutes = require('./routes/auth');
@@ -12,8 +12,7 @@ class Server {
   }
 
   initDatabase() {
-    return new Promise((res, rej) => setTimeout(() => res(), 500));
-    // return database.sync({ /* force: true */ });
+    return database.sync({ /* force: true */ });
   }
 
   setMiddlewares() {
@@ -22,9 +21,6 @@ class Server {
   }
 
   setRoutes() {
-    this.app.use('/', (req, res, next) => {
-      res.status(200).json({ message: 'hi' });
-    });
     this.app.use('/auth', authRoutes);
     this.app.use(errorHandler);
   }
