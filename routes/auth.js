@@ -16,15 +16,15 @@ router.post('/signup',
 
 router.post('/login', Auth.login);
 
-router.post('/reset-password/', Auth.setResetPasswordToken);
+// router.post('/reset-password/', Auth.setResetPasswordToken);
 
-router.post('/reset-password/:token',
-  [
-    // implement your own validation methods
-  ],
-  validateResult.default,
-  Auth.resetPassword);
+// router.post('/reset-password/:token',
+//   [
+//     // implement your own validation methods
+//   ],
+//   validateResult.default,
+//   Auth.resetPassword);
 
-router.post('/rename-user', isAuth, Auth.renameUser);
+// router.post('/rename-user', isAuth, Auth.renameUser);
 
 module.exports = router;
