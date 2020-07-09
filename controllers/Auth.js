@@ -9,11 +9,11 @@ const ErrorHandler = require('../models/http-error');
 
 class Auth {
   async signup(req, res, next) {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
     try {
       const hashedPw = await bcrypt.hash(password, 12);
-      const user = await User.create({ email, password: hashedPw });
+      const user = await User.create({ name, email, password: hashedPw });
 
       res.status(201).json({
         message: 'successfully created user',
