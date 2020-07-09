@@ -9,11 +9,11 @@ const ErrorHandler = require('../models/http-error');
 
 class Auth {
   async signup(req, res, next) {
-    const { email, username, password } = req.body;
+    const { email, password } = req.body;
 
     try {
       const hashedPw = await bcrypt.hash(password, 12);
-      const user = await User.create({ username, email, password: hashedPw });
+      const user = await User.create({ email, password: hashedPw });
 
       res.status(201).json({
         message: 'successfully created user',
@@ -25,10 +25,10 @@ class Auth {
   }
 
   async login(req, res, next) {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     try {
-      const user = await User.getUserByUsername(username);
+      const user = await User.getUserByEmail(email);
       const comparePw = await bcrypt.compare(password, user.password);
 
       if (!comparePw) throw new ErrorHandler('Wrong password', 401);
@@ -71,7 +71,6 @@ class Auth {
       next(error);
     }
   }
-
 }
 
 module.exports = new Auth();
