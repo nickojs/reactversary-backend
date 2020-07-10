@@ -4,6 +4,7 @@ const database = require('./config/database');
 
 const errorHandler = require('./middlewares/error-handler');
 const authRoutes = require('./routes/auth');
+const anniversaryRoutes = require('./routes/anniversary');
 
 class Server {
   constructor(express) {
@@ -22,6 +23,7 @@ class Server {
 
   setRoutes() {
     this.app.use('/auth', authRoutes);
+    this.app.use('/anniversary', anniversaryRoutes);
     this.app.use(errorHandler);
   }
 
