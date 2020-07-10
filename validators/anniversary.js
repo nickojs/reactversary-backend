@@ -1,7 +1,8 @@
 const anniversarySchema = {
   name: {
     in: ['body'],
-    required: {
+    isLength: {
+      options: { min: 3 },
       errorMessage: 'name required'
     },
     trim: true
@@ -14,14 +15,16 @@ const anniversarySchema = {
   },
   gift: {
     in: ['body'],
-    required: {
+    isLength: {
+      options: { min: 1 },
       errorMessage: 'gift required'
     },
     trim: true
   },
   location: {
     in: ['body'],
-    required: {
+    isLength: {
+      options: { min: 1 },
       errorMessage: 'location required'
     },
     trim: true
