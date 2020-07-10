@@ -1,6 +1,6 @@
 const express = require('express');
 const { checkSchema } = require('express-validator');
-const { signupSchema } = require('../validators/auth');
+const { anniversarySchema } = require('../validators/anniversary');
 const validateResult = require('../helpers/validate-routes');
 const isAuth = require('../middlewares/is-auth');
 
@@ -10,6 +10,8 @@ const router = express.Router();
 
 router.post('/save-birthdate',
   isAuth,
+  checkSchema(anniversarySchema),
+  validateResult.default,
   async (req, res, next) => {
     const { userId } = req;
     const {
@@ -26,8 +28,6 @@ router.post('/save-birthdate',
     // user.save();
 
     res.status(200).json({ message: 'ok', user: req.userId });
-  },
-  // schema,
-  validateResult.default);
+  });
 
 module.exports = router;
