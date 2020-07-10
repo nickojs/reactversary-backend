@@ -1,6 +1,5 @@
 const User = require('../models/User');
 const An = require('../models/Anniversary');
-const ErrorHandler = require('../models/http-error');
 
 class Anniversary {
   async getBirthdates(req, res, next) {
@@ -40,10 +39,31 @@ class Anniversary {
     const { id } = req.params;
 
     try {
-      const anniversary = await An.getBirthdateById(id);
-      await anniversary.destroy();
+      const instance = await An.getBirthdateById(id);
+      await instance.destroy();
 
       res.status(200).json({ message: 'deleted successfully' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateBirthdate(req, res, next) {
+    const { id } = req.params;
+    const {
+      name, date, gift, location
+    } = req.body;
+
+    try {
+      const instance = await An.getBirthdateById(id);
+
+      instance.name = name;
+      instance.date = date;
+      instance.gift = gift;
+      instance.location = location;
+
+      await instance.save();
+      res.status(201).json({ message: instance });
     } catch (error) {
       next(error);
     }

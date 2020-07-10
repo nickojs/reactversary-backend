@@ -10,12 +10,18 @@ const router = express.Router();
 
 router.get('/birthdates', isAuth, Anniversary.getBirthdates);
 
+router.delete('/birthdate/:id', isAuth, Anniversary.deleteBirthdate);
+
 router.post('/save-birthdate',
   isAuth,
   checkSchema(anniversarySchema),
   validateResult.default,
   Anniversary.saveBirthday);
 
-router.delete('/birthdate/:id', isAuth, Anniversary.deleteBirthdate);
+router.put('/update-birthdate/:id',
+  isAuth,
+  // checkSchema(anniversarySchema),
+  // validateResult.default,
+  Anniversary.updateBirthdate);
 
 module.exports = router;
