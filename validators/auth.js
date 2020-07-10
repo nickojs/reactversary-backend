@@ -24,7 +24,8 @@ const locateEmail = async (email, { req }) => {
 const signupSchema = {
   name: {
     in: ['body'],
-    required: {
+    isLength: {
+      options: { min: 4 },
       errorMessage: 'name required'
     },
     trim: true
