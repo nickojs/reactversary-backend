@@ -1,5 +1,6 @@
 const express = require('express');
-const { body } = require('express-validator');
+const { checkSchema } = require('express-validator');
+const { signupSchema } = require('../validators/auth');
 const validateResult = require('../helpers/validate-routes');
 
 const Auth = require('../controllers/Auth');
@@ -8,9 +9,7 @@ const isAuth = require('../middlewares/is-auth');
 const router = express.Router();
 
 router.post('/signup',
-  [
-    // implement your own validation methods
-  ],
+  checkSchema(signupSchema),
   validateResult.default,
   Auth.signup);
 
