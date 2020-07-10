@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const database = require('../config/database');
+const ErrorHandler = require('./http-error');
 
 const Anniversary = database.define('Anniversary', {
   id: {
@@ -25,5 +26,11 @@ const Anniversary = database.define('Anniversary', {
     allowNull: false
   }
 }, { tableName: 'anniversaries' });
+
+Anniversary.getBirthdateById = async (id) => {
+  const birthdate = await Anniversary.findByPk(id);
+  if (!birthdate) throw new ErrorHandler('Not found', 404);
+  return birthdate;
+};
 
 module.exports = Anniversary;
