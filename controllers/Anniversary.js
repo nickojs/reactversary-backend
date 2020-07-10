@@ -17,7 +17,7 @@ class Anniversary {
       const user = await User.getUserById(userId);
       await user.createAnniversary(birthday);
 
-      res.status(200).json({ message: 'ok' });
+      res.status(201).json({ message: 'ok' });
     } catch (error) {
       next(error);
     }
