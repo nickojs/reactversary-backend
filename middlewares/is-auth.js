@@ -3,6 +3,8 @@ const ErroHandler = require('../models/http-error');
 
 module.exports = (req, res, next) => {
   const authHeader = req.get('Authorization');
+  if (!authHeader) throw new ErroHandler('Not authenticated', 401);
+
   const token = authHeader.split(' ')[1]; // "Bearer[0] JwtToken[1]"
 
   try {
