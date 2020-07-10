@@ -3,6 +3,19 @@ const An = require('../models/Anniversary');
 const ErrorHandler = require('../models/http-error');
 
 class Anniversary {
+  async getBirthdates(req, res, next) {
+    const { userId } = req;
+
+    try {
+      const user = await User.getUserById(userId);
+      const anniversaries = await user.getAnniversaries();
+
+      res.status(200).json({ birthdates: anniversaries });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async saveBirthday(req, res, next) {
     const { userId } = req;
     const {

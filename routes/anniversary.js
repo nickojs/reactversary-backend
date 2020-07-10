@@ -8,6 +8,8 @@ const Anniversary = require('../controllers/Anniversary');
 
 const router = express.Router();
 
+router.get('/birthdates', isAuth, Anniversary.getBirthdates);
+
 router.post('/save-birthdate',
   isAuth,
   checkSchema(anniversarySchema),
