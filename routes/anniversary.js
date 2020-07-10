@@ -14,4 +14,6 @@ router.post('/save-birthdate',
   validateResult.default,
   Anniversary.saveBirthday);
 
+router.delete('/birthdate/:id', isAuth, Anniversary.deleteBirthdate);
+
 module.exports = router;
