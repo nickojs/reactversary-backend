@@ -1,6 +1,6 @@
 const express = require('express');
 const { checkSchema } = require('express-validator');
-const { signupSchema } = require('../validators/auth');
+const { signupSchema, loginSchema } = require('../validators/auth');
 const validateResult = require('../helpers/validate-routes');
 
 const Auth = require('../controllers/Auth');
@@ -13,7 +13,10 @@ router.post('/signup',
   validateResult.default,
   Auth.signup);
 
-router.post('/login', Auth.login);
+router.post('/login',
+  checkSchema(loginSchema),
+  validateResult.default,
+  Auth.login);
 
 // router.post('/reset-password/', Auth.setResetPasswordToken);
 

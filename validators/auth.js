@@ -26,7 +26,7 @@ const signupSchema = {
     in: ['body'],
     isLength: {
       options: { min: 4 },
-      errorMessage: 'name required'
+      errorMessage: 'Nome deveria ser maior'
     },
     trim: true
   },
@@ -34,25 +34,41 @@ const signupSchema = {
     in: ['body'],
     isLength: {
       options: { min: 8, max: 20 },
-      errorMessage: 'invalid password length'
+      errorMessage: 'Senha muito curta'
     },
     matches: {
       options: /([0-9].*[a-zA-Z])|([a-zA-Z].*[0-9])/,
-      errorMessage: 'password should have at least one number and one char'
+      errorMessage: 'Senha tem que ter pelo menos uma letra e um número'
     }
   },
   email: {
     in: ['body'],
     isEmail: true,
-    errorMessage: 'insert valid email',
+    errorMessage: 'Email inválido',
     custom: {
       options: locateEmail,
-      errorMessage: 'email already in use'
+      errorMessage: 'Email em uso'
     },
     trim: true
   }
 };
 
+const loginSchema = {
+  password: {
+    in: ['body'],
+    isLength: {
+      options: { min: 8, max: 20 },
+      errorMessage: 'Tamanho de senha inválido'
+    }
+  },
+  email: {
+    in: ['body'],
+    isEmail: true,
+    errorMessage: 'Email inválido'
+  }
+};
+
 module.exports = {
-  signupSchema
+  signupSchema,
+  loginSchema
 };
